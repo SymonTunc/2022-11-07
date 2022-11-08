@@ -1,4 +1,5 @@
 import csv
+from collections import namedtuple
 
 def read_csv_noheader(filename):
     users = []
@@ -36,4 +37,20 @@ def read_csv_header(filename):
         users.append(my_ud)
 
     return users
+
+Person = namedtuple('Person', ('id', 'firstname', 'lastname', 'birth'))
     
+def read_noheader_person(filename):
+    persons = []
+
+    f = open(filename, encoding='cp1252')
+    rdr = csv.reader(f, delimiter=';', quotechar='"')
+    for id, firstname, lastname, birth in rdr:
+        persons.append(Person(
+            id=int(id),
+            firstname=firstname,
+            lastname=lastname,
+            birth=birth
+        ))
+
+    return persons
