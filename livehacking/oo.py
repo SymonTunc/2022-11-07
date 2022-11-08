@@ -1,21 +1,14 @@
-class Person:
-    def __init__(self, firstname, lastname):
-        self.firstname = firstname
-        self.lastname = lastname
+from collections import namedtuple
 
-    def say_hello(self):
-        return f'Hello my name is {self.firstname} {self.lastname}'
+Person = namedtuple('Person', ('firstname', 'lastname'))
 
-    @classmethod
-    def make_child(cls, firstname, person1, person2):
-        child = cls(firstname, person1.lastname + '-' + person2.lastname)
-        return child
+csv_content = [
+    ['Joerg', 'Faschingbauer'],
+    ['Isolde', 'Haubentaucher'],
+]
 
-joerg = Person('Joerg', 'Faschingbauer')
-isi = Person('Isolde', 'Haubentaucher')
-print(joerg.say_hello())
-print(isi.say_hello())
+persons = []
+for row in csv_content:
+    persons.append(Person._make(row))
 
-
-child = Person.make_child('Alex', joerg, isi)
-print(child.say_hello())
+print(persons)
